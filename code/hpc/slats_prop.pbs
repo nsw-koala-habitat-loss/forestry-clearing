@@ -1,0 +1,13 @@
+#!/bin/bash -l
+#PBS -N slats_extract_prop
+#PBS -l select=1:ncpus=1:mem=64g:cputype=6140
+#PBS -l walltime=08:00:00
+#PBS -m b
+#PBS -J 1-9
+#PBS -o job_logs
+#PBS -e job_logs
+cd $PBS_O_WORKDIR
+
+module load r/4.2.1-foss-2022a
+
+Rscript code/preprocessing/slats_prop.R $PBS_ARRAY_INDEX

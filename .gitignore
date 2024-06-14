@@ -1,0 +1,16 @@
+/data
+.Rproj.user
+.RData
+plots/
+job_logs/
+intermediate_data/
+output/
+processed_data/
+*.e*
+*.o*
+.autolock
+*.autolock
+cluster
+.Rhistory
+.DS_Store
+*.pdf

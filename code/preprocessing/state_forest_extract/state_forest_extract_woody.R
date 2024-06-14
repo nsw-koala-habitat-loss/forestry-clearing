@@ -1,0 +1,9 @@
+library(data.table)
+library(sf)
+
+source("code/preprocessing/extract_functions.R")
+
+sf_full <- st_read("output/state_forests/state_forests_all.shp")
+
+sf_woody_veg <- extract_woody_veg(sf_full, "sf_id")
+fwrite(sf_woody_veg, 'output/state_forests/state_forest_woody_veg.csv', append=F)

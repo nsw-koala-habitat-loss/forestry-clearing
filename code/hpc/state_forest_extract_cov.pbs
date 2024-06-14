@@ -1,0 +1,10 @@
+#!/bin/bash -l
+#PBS -N state_forest_extract_cov
+#PBS -l select=1:ncpus=1:mem=128g:cputype=6140
+#PBS -l walltime=02:00:00
+#PBS -m abe
+cd $PBS_O_WORKDIR
+
+module load r/4.2.1-foss-2022a
+
+Rscript code/preprocessing/state_forest_extract/state_forest_extract_cov.R
