@@ -30,9 +30,9 @@ match_coef_plt <- function(match_model) {
   return(coef_plot)
 }
 
-#plan(multisession, workers = 4)
+## Matching between revoked and current state forests to estimate the reduction in clearing after revocation of state forests -------------------
+
 file_list <- list.files('output/cov_prop_parallel', full.names = T)
-#file_list <- file_list[grepl(kmr, file_list)]
 cov_prop <- arrow::open_csv_dataset(file_list, skip_empty_rows = T)
 lots_sf_association <- fread('output/model_data/lots_sf_association.csv')
 
@@ -165,12 +165,8 @@ if (!read_from_file) {
     left_join(lots_tsz_df, by = 'lot_id') %>%
     left_join(dist_timber_processing_df, by = 'lot_id')
   
-  # Compute treatment variable
-  tsz_revocations <- c("Queanbeyan", "Batemans Bay", "Narooma") # https://legislation.nsw.gov.au/view/html/inforce/current/act-2005-084#sch.3-sec.1
-  
   cov_pnf_out <- collect(cov_prop_pnf)
   cov_pnf <- reclass_forest_vars(cov_pnf_out)
-  cov_pnf$treated <- cov_pnf$TSZName %in% tsz_revocations
   unmatched_data <- cov_pnf[,c('lot_id', 'treated', 'lot_area' , 'ecol_cond','elev', 'income','pop_den', 'prec','temp','drought','slope','fire','remoteness','forest_category', 'forest_type', "dist_tpf", "woody_nsw", "TSZName")]
   unmatched_data <- unmatched_data[complete.cases(unmatched_data),]
   fwrite(unmatched_data, 'output/match_data/match_data_pnf.csv')

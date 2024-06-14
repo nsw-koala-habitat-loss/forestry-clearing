@@ -57,6 +57,9 @@ extract_cov <- function(sf_obj, output_dir=NULL, cov_type = 'both') {
 }
 
 extract_slats <- function(sf_obj, id_col = 'id') {
+  # sf_obj: a Simple Features (sf) object of interest
+  # id_col: the name of the column in the sf_obj that uniquely identifies each feature in sf_obj
+
   # SLATS data
   rast_files <- list.files('output/slats', '*.tif$', full.names = T)
   rast_names <- list.files('output/slats', '*.tif$', full.names = F) %>% tools::file_path_sans_ext()
